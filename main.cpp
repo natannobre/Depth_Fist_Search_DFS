@@ -3,6 +3,5 @@
 using namespace std;
 
 int main(){
-    cout << "Jorge Lucas" << endl;
-    cout << "Natan Nobre" << endl;
+    cout << "Ruan, estah me ouvindo?" << endl;
 }
