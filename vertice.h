@@ -7,25 +7,25 @@ using namespace std;
 class Vertice
 {
 public:
-    string nome;
+    string name;
     int id;
 
     public:
-    Vertice(string nome, int id);
+    Vertice(string name, int id);
 
-    string getNome();   
+    string getName();   
     int getId();
 };
 
-Vertice::Vertice(string nome, int id)
+Vertice::Vertice(string name, int id)
 {
-    this->nome = nome;
+    this->name = name;
     this->id = id;
 }
 
-string Vertice::getNome()
+string Vertice::getName()
 {
-    return this->nome;
+    return this->name;
 }
 
 int Vertice::getId()
