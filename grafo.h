@@ -2,8 +2,9 @@
 #define GRAFO_H_
 
 #include "vertice.h"
-#include "Aresta.h"
+#include "aresta.h"
 #include <vector>
+#include <list>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ public:
     void addVertice(Vertice * vertice);   
     void addAresta(Aresta * aresta);
     bool isThereAresta(Vertice * v1, Vertice * v2);
+    list<Vertice*> findChildren(Vertice * v1);
 };
 
 Grafo::Grafo(){}
@@ -50,6 +52,18 @@ bool Grafo::isThereAresta(Vertice * v1, Vertice * v2)
 
 }
 
+list<Vertice*> Grafo::findChildren(Vertice * v1)
+{
+    list<Vertice*> verticesAdjacentes;
+    for (auto const&it : this->ListVertices)
+    {
+        if(isThereAresta(v1, it))
+        {
+            verticesAdjacentes.push_back(it);
+        }
+    }
+    return verticesAdjacentes;
+}
 
 
 #endif
