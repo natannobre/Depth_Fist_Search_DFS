@@ -7,9 +7,6 @@ using namespace std;
 
 class Vertice
 {
-    string nome;
-    int id;
-
     public:
     Vertice(string nome, int id);
 
