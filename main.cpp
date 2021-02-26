@@ -1,8 +1,11 @@
 #include <iostream>
+#include <string>
+#include <vertice.h>
 
 using namespace std;
 
-int main(){
-    cout << "Ruan teste" << endl;
-    cout << "Teste novo usando share" << endl;
+int main()
+{
+    Vertice sibiu = Vertice("Sibiu", 0);
+    cout << sibiu.getNome() << endl;
 }
