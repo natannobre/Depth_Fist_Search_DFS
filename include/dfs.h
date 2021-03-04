@@ -113,6 +113,7 @@ bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
 void DFS::status()
 {
     this->stepStatus += 1;
+    cout << endl;
     cout << stepStatus;
     cout << " - ";
     cout << "BORDA: {-";
@@ -134,6 +135,7 @@ void DFS::status()
         copyExplorados.pop();
     }
     cout << "}" << endl;
+    cout << endl;
 }
 
 #endif

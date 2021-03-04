@@ -1,16 +1,26 @@
 #include <iostream>
 #include <string>
-#include "vertice.h"
-#include "aresta.h"
-#include "grafo.h"
-#include "dfs.h"
+#include "include/vertice.h"
+#include "include/aresta.h"
+#include "include/grafo.h"
+#include "include/dfs.h"
 #include <list>
 
 using namespace std;
 
+// argv[1] = <algoritmo>
+// argv[2] = <origem>
+// argv[3] = <destino>
 
-int main()
+int main( int argc,      // Number of strings in array argv
+          char *argv[])   // Array of command-line argument strings
 {
+    string algoritmo = argv[1];
+    string sOrigem = argv[2];
+    string sDestino = argv[3];
+    Vertice* vOrigem;
+    Vertice* vDestino;
+
     Vertice *Oradea = new Vertice("Oradea", 0);
     Vertice *Zerind = new Vertice("Zerind", 1);
     Vertice *Arad = new Vertice("Arad", 2);
@@ -102,14 +112,29 @@ int main()
     mapaDaRomenia->addAresta(Vaslui_Iasi); 
     mapaDaRomenia->addAresta(Iasi_Neamt);
 
-    // list<Vertice*> adjacentes = mapaDaRomenia->findChildren(Pitesti);
+    vector<Vertice*> listVertices = mapaDaRomenia->ListVertices;
     
-    // for (auto const&it : adjacentes)
-    // {
-    //     cout << it->getName() << endl;    
-    // }
+    for (auto const&vertice : listVertices)
+    {
+        if (vertice->getName() == sOrigem)
+        {
+            vOrigem = vertice;
+        }
+        if (vertice->getName() == sDestino)
+        {
+            vDestino = vertice;
+        }
+        
+    }
 
-    DFS *dfs = new DFS(Timisoara, Sibiu, mapaDaRomenia); // Caminho não otimo
+    if (argv[1])
+    {
+        cout << endl;
+        cout << "Algoritmo de Busca em Profundidade:" << endl;
+        DFS *dfs = new DFS(vOrigem, vDestino, mapaDaRomenia);
+    }
+
+    
     
 }
 
