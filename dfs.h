@@ -38,7 +38,7 @@ DFS::DFS(Vertice * origem, Vertice * destino, Grafo * mapa)
     answer = start(this->origem, this->destino, this->mapa);
     if(answer)
     {
-        cout << "SOLUCAO ENCONTRADA!!!" << endl;
+        cout << "SOLUCAO ENCONTRADA!!! - " + this->destino->getName() << endl;
         status();
     }
     else
@@ -60,11 +60,10 @@ bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
         node = borda.top();
         borda.pop();
         explorados.push(node);
-        status();
         children = mapa->findChildren(node); // Gera os filhos daquele nó.
+        status();
         for (auto const&newChildNode : children)
         {
-            status();
             stack <Vertice*> copyBorda = borda;
             while (!copyBorda.empty()) // checa se o filho está na borda.
             {
@@ -79,7 +78,7 @@ bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
 
             if(!copyBorda.empty()) // Se encontrou o nó filho na borda então volta para checar o próximo filho.
             {
-                break;
+                continue;
             }
 
             stack <Vertice*> copyExplorados = explorados;
@@ -96,18 +95,16 @@ bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
 
             if(!copyExplorados.empty()) // Se encontrou o nó filho em explorados então volta para checar o próximo filho.
             {
-                break;
+                continue;
             }
         
             if(newChildNode->getId() == this->destino->getId()) // Como o nó filho não foi encontrado nem na borda nem em explorado, checo se é o objetivo.
             {
-                cout << "aqui" << endl;
                 return true;
             }
 
             borda.push(newChildNode); // Se o nó filho não é o objetivo ele é colocado na borda;
             status();
-            
         }
     }
     return false;
