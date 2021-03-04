@@ -82,7 +82,7 @@ bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
             }
 
             stack <Vertice*> copyExplorados = explorados;
-            while (!copyExplorados.empty()) // checa se o filho está na borda.
+            while (!copyExplorados.empty()) // checa se o filho está em explorados.
             {
                 if (copyExplorados.top()->getId() == newChildNode->getId())
                 {

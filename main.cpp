@@ -102,14 +102,14 @@ int main()
     mapaDaRomenia->addAresta(Vaslui_Iasi); 
     mapaDaRomenia->addAresta(Iasi_Neamt);
 
-    list<Vertice*> adjacentes = mapaDaRomenia->findChildren(Pitesti);
+    // list<Vertice*> adjacentes = mapaDaRomenia->findChildren(Pitesti);
     
     // for (auto const&it : adjacentes)
     // {
     //     cout << it->getName() << endl;    
     // }
 
-    DFS *dfs = new DFS(Arad, Bucharest, mapaDaRomenia);
+    DFS *dfs = new DFS(Timisoara, Sibiu, mapaDaRomenia); // Caminho não otimo
     
 }
 
