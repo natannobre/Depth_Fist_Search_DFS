@@ -3,6 +3,7 @@
 #include "vertice.h"
 #include "aresta.h"
 #include "grafo.h"
+#include "dfs.h"
 #include <list>
 
 using namespace std;
@@ -55,60 +56,60 @@ int main()
     Aresta *Vaslui_Iasi = new Aresta(Vaslui, Iasi, 92);
     Aresta *Iasi_Neamt = new Aresta(Iasi, Neamt, 87);
     
-    Grafo * grafo = new Grafo();
-    grafo->addVertice(Oradea); 
-    grafo->addVertice(Zerind); 
-    grafo->addVertice(Arad);
-    grafo->addVertice(Sibiu);
-    grafo->addVertice(Timisoara);
-    grafo->addVertice(Lugoj);
-    grafo->addVertice(Mehadia);
-    grafo->addVertice(Drobeta);
-    grafo->addVertice(Craiova);
-    grafo->addVertice(RimnicuVilcea);
-    grafo->addVertice(Pitesti);
-    grafo->addVertice(Fagaras);
-    grafo->addVertice(Bucharest);
-    grafo->addVertice(Giurgiu);
-    grafo->addVertice(Urziceni);
-    grafo->addVertice(Hirsova);
-    grafo->addVertice(Eforie); 
-    grafo->addVertice(Vaslui); 
-    grafo->addVertice(Iasi);
-    grafo->addVertice(Neamt);
+    Grafo * mapaDaRomenia = new Grafo();
+    mapaDaRomenia->addVertice(Oradea); 
+    mapaDaRomenia->addVertice(Zerind); 
+    mapaDaRomenia->addVertice(Arad);
+    mapaDaRomenia->addVertice(Sibiu);
+    mapaDaRomenia->addVertice(Timisoara);
+    mapaDaRomenia->addVertice(Lugoj);
+    mapaDaRomenia->addVertice(Mehadia);
+    mapaDaRomenia->addVertice(Drobeta);
+    mapaDaRomenia->addVertice(Craiova);
+    mapaDaRomenia->addVertice(RimnicuVilcea);
+    mapaDaRomenia->addVertice(Pitesti);
+    mapaDaRomenia->addVertice(Fagaras);
+    mapaDaRomenia->addVertice(Bucharest);
+    mapaDaRomenia->addVertice(Giurgiu);
+    mapaDaRomenia->addVertice(Urziceni);
+    mapaDaRomenia->addVertice(Hirsova);
+    mapaDaRomenia->addVertice(Eforie); 
+    mapaDaRomenia->addVertice(Vaslui); 
+    mapaDaRomenia->addVertice(Iasi);
+    mapaDaRomenia->addVertice(Neamt);
 
-    grafo->addAresta(Oradea_Sibiu);
-    grafo->addAresta(Oradea_Zerind);
-    grafo->addAresta(Zerind_Arad);
-    grafo->addAresta(Arad_Sibiu);
-    grafo->addAresta(Arad_Timisoara); 
-    grafo->addAresta(Timisoara_Lugoj);
-    grafo->addAresta(Lugoj_Mehadia);
-    grafo->addAresta(Mehadia_Drobeta);
-    grafo->addAresta(Drobeta_Craiova);
-    grafo->addAresta(Craiova_RimnicuVilcea);
-    grafo->addAresta(Craiova_Pitesti);
-    grafo->addAresta(RimnicuVilcea_Sibiu);
-    grafo->addAresta(Sibiu_Fagaras);
-    grafo->addAresta(RimnicuVilcea_Pitesti);
-    grafo->addAresta(Fagaras_Bucharest);
-    grafo->addAresta(Pitesti_Bucharest);
-    grafo->addAresta(Bucharest_Giurgiu);
-    grafo->addAresta(Bucharest_Urziceni);
-    grafo->addAresta(Urziceni_Hirsova);
-    grafo->addAresta(Hirsova_Eforie); 
-    grafo->addAresta(Urziceni_Vaslui);
-    grafo->addAresta(Vaslui_Iasi); 
-    grafo->addAresta(Iasi_Neamt);
+    mapaDaRomenia->addAresta(Oradea_Sibiu);
+    mapaDaRomenia->addAresta(Oradea_Zerind);
+    mapaDaRomenia->addAresta(Zerind_Arad);
+    mapaDaRomenia->addAresta(Arad_Sibiu);
+    mapaDaRomenia->addAresta(Arad_Timisoara); 
+    mapaDaRomenia->addAresta(Timisoara_Lugoj);
+    mapaDaRomenia->addAresta(Lugoj_Mehadia);
+    mapaDaRomenia->addAresta(Mehadia_Drobeta);
+    mapaDaRomenia->addAresta(Drobeta_Craiova);
+    mapaDaRomenia->addAresta(Craiova_RimnicuVilcea);
+    mapaDaRomenia->addAresta(Craiova_Pitesti);
+    mapaDaRomenia->addAresta(RimnicuVilcea_Sibiu);
+    mapaDaRomenia->addAresta(Sibiu_Fagaras);
+    mapaDaRomenia->addAresta(RimnicuVilcea_Pitesti);
+    mapaDaRomenia->addAresta(Fagaras_Bucharest);
+    mapaDaRomenia->addAresta(Pitesti_Bucharest);
+    mapaDaRomenia->addAresta(Bucharest_Giurgiu);
+    mapaDaRomenia->addAresta(Bucharest_Urziceni);
+    mapaDaRomenia->addAresta(Urziceni_Hirsova);
+    mapaDaRomenia->addAresta(Hirsova_Eforie); 
+    mapaDaRomenia->addAresta(Urziceni_Vaslui);
+    mapaDaRomenia->addAresta(Vaslui_Iasi); 
+    mapaDaRomenia->addAresta(Iasi_Neamt);
 
-    list<Vertice*> adjacentes = grafo->findChildren(Craiova);
+    list<Vertice*> adjacentes = mapaDaRomenia->findChildren(Timisoara);
     
     for (auto const&it : adjacentes)
     {
         cout << it->getName() << endl;    
     }
 
+    DFS *dfs = new DFS(Arad, Bucharest, mapaDaRomenia);
     
-
 }
 
