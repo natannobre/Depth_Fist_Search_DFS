@@ -20,6 +20,7 @@ public:
     void addVertice(Vertice * vertice);   
     void addAresta(Aresta * aresta);
     bool isThereAresta(Vertice * v1, Vertice * v2);
+    Aresta* isThereAresta2(Vertice * v1, Vertice * v2);
     list<Vertice*> findChildren(Vertice * v1);
 };
 
@@ -49,6 +50,23 @@ bool Grafo::isThereAresta(Vertice * v1, Vertice * v2)
     }
 
     return false;
+
+}
+
+Aresta* Grafo::isThereAresta2(Vertice * v1, Vertice * v2)
+{
+    for (auto const&it : this->ListArestas)
+    {
+        if((it->getV1()->getId() == v1->getId()) || (it->getV1()->getId() == v2->getId()))
+        {
+            if((it->getV2()->getId() == v1->getId()) || (it->getV2()->getId() == v2->getId()))
+            {
+                return it;
+            }
+        }
+    }
+
+    return NULL;
 
 }
 

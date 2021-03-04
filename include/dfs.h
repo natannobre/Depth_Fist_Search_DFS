@@ -4,6 +4,8 @@
 #include <iostream>
 #include "vertice.h"
 #include "grafo.h"
+#include "no.h"
+#include "aresta.h"
 #include <vector>
 #include <list>
 #include <stack>
@@ -13,11 +15,13 @@ using namespace std;
 class DFS
 {
 public:
-    stack <Vertice*> borda;
-    stack <Vertice*> explorados;
+    stack <No*> borda;
+    stack <No*> explorados;
     Vertice* origem;
     Vertice* destino;
     Grafo* mapa;
+    int custoSolucao;
+    list <Vertice*> caminhoEncontrado;
     bool answer = false;
     int stepStatus = 0;
 
@@ -26,7 +30,8 @@ public:
     DFS(Vertice * origem, Vertice * destino, Grafo * mapa);
 
     bool start(Vertice * origem, Vertice * destino, Grafo * mapa);
-    void status();   
+    void status();
+    void buscarCaminho(No *no);
 
 };
 
@@ -38,7 +43,17 @@ DFS::DFS(Vertice * origem, Vertice * destino, Grafo * mapa)
     answer = start(this->origem, this->destino, this->mapa);
     if(answer)
     {
+        cout << endl;
         cout << "SOLUCAO ENCONTRADA!!! - " + this->destino->getName() << endl;
+        
+        cout << endl << "Caminho Encontrado:" << endl << endl;
+        for (auto const&vertice : this->caminhoEncontrado)
+        {
+            cout << vertice->getName() << " - ";
+        }
+        cout << endl;
+        cout << endl << "Custo da Solução: ";
+        cout << this->custoSolucao << endl;
         status();
     }
     else
@@ -49,9 +64,10 @@ DFS::DFS(Vertice * origem, Vertice * destino, Grafo * mapa)
 
 bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
 {
-    Vertice* node;
+    No* nOrigem = new No(origem, NULL);
+    No* node;
     list<Vertice*> children;
-    borda.push(origem); // Coloca o nó de origem na borda.
+    borda.push(nOrigem); // Coloca o nó de origem na borda.
     while(!explorados.empty()) // Garante que explorados sempre comece vazio.
     {
         explorados.pop();
@@ -60,14 +76,14 @@ bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
         node = borda.top();
         borda.pop();
         explorados.push(node);
-        children = mapa->findChildren(node); // Gera os filhos daquele nó.
+        children = mapa->findChildren(node->getCurrent()); // Gera os filhos daquele nó.
         status();
         for (auto const&newChildNode : children)
         {
-            stack <Vertice*> copyBorda = borda;
+            stack <No*> copyBorda = borda;
             while (!copyBorda.empty()) // checa se o filho está na borda.
             {
-                if (copyBorda.top()->getId() == newChildNode->getId())
+                if (copyBorda.top()->getCurrent()->getId() == newChildNode->getId())
                 {
                     break;
                 }else
@@ -81,10 +97,10 @@ bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
                 continue;
             }
 
-            stack <Vertice*> copyExplorados = explorados;
+            stack <No*> copyExplorados = explorados;
             while (!copyExplorados.empty()) // checa se o filho está em explorados.
             {
-                if (copyExplorados.top()->getId() == newChildNode->getId())
+                if (copyExplorados.top()->getCurrent()->getId() == newChildNode->getId())
                 {
                     break;
                 }else
@@ -100,10 +116,11 @@ bool DFS::start(Vertice * origem, Vertice * destino, Grafo * mapa)
         
             if(newChildNode->getId() == this->destino->getId()) // Como o nó filho não foi encontrado nem na borda nem em explorado, checo se é o objetivo.
             {
+                buscarCaminho(new No(newChildNode, node));
                 return true;
             }
 
-            borda.push(newChildNode); // Se o nó filho não é o objetivo ele é colocado na borda;
+            borda.push(new No(newChildNode, node)); // Se o nó filho não é o objetivo ele é colocado na borda;
             status();
         }
     }
@@ -117,10 +134,10 @@ void DFS::status()
     cout << stepStatus;
     cout << " - ";
     cout << "BORDA: {-";
-    stack <Vertice*> copyBorda = borda;
+    stack <No*> copyBorda = borda;
     while (!copyBorda.empty())
     {
-        cout << copyBorda.top()->getName() + "-";
+        cout << copyBorda.top()->getCurrent()->getName() + "-";
         copyBorda.pop();
     }
     cout << "}" << endl;
@@ -128,14 +145,34 @@ void DFS::status()
     cout << stepStatus;
     cout << " - ";
     cout << "EXPLORADOS: {-";
-    stack <Vertice*> copyExplorados = explorados;
+    stack <No*> copyExplorados = explorados;
     while (!copyExplorados.empty())
     {
-        cout << copyExplorados.top()->getName() + "-";
+        cout << copyExplorados.top()->getCurrent()->getName() + "-";
         copyExplorados.pop();
     }
     cout << "}" << endl;
     cout << endl;
+}
+
+void DFS::buscarCaminho(No* no)
+{
+    int custoTotal = 0;
+    No* node = no;
+    Aresta *aresta;
+    list<Vertice*> caminho;
+    while(node != NULL)
+    {
+        caminho.push_front(node->getCurrent());
+        if(node->getFather() != NULL){
+            aresta = this->mapa->isThereAresta2(node->getCurrent(), node->getFather()->getCurrent());
+            custoTotal += aresta->getWeight();
+        }
+        node = node->getFather();
+    }
+    
+    this->caminhoEncontrado = caminho;
+    this->custoSolucao = custoTotal;
 }
 
 #endif
