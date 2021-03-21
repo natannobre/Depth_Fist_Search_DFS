@@ -4,6 +4,7 @@
 #include "include/aresta.h"
 #include "include/grafo.h"
 #include "include/dfs.h"
+#include "include/guloso.h"
 #include <list>
 
 using namespace std;
@@ -16,31 +17,34 @@ int main( int argc,      // Number of strings in array argv
           char *argv[])   // Array of command-line argument strings
 {
     string algoritmo = argv[1];
+    cout << algoritmo << endl;
     string sOrigem = argv[2];
+    cout << sOrigem << endl;
     string sDestino = argv[3];
+    cout << sDestino << endl;
     Vertice* vOrigem;
     Vertice* vDestino;
 
-    Vertice *Oradea = new Vertice("Oradea", 0);
-    Vertice *Zerind = new Vertice("Zerind", 1);
-    Vertice *Arad = new Vertice("Arad", 2);
-    Vertice *Sibiu = new Vertice("Sibiu", 3);
-    Vertice *Timisoara = new Vertice("Timisoara", 4);
-    Vertice *Lugoj = new Vertice("Lugoj", 5);
-    Vertice *Mehadia = new Vertice("Mehadia", 6);
-    Vertice *Drobeta = new Vertice("Drobeta", 7);
-    Vertice *Craiova = new Vertice("Craiova", 8);
-    Vertice *RimnicuVilcea = new Vertice("RimnicuVilcea", 9);
-    Vertice *Pitesti = new Vertice("Pitesti", 10);
-    Vertice *Fagaras = new Vertice("Fagaras", 11);
-    Vertice *Bucharest = new Vertice("Bucharest", 12);
-    Vertice *Giurgiu = new Vertice("Giurgiu", 13);
-    Vertice *Urziceni = new Vertice("Urziceni", 14);
-    Vertice *Hirsova = new Vertice("Hirsova", 15);
-    Vertice *Eforie = new Vertice("Eforie", 16);
-    Vertice *Vaslui = new Vertice("Vaslui", 17);
-    Vertice *Iasi = new Vertice("Iasi", 18);
-    Vertice *Neamt = new Vertice("Neamt", 19);
+    Vertice *Oradea = new Vertice("Oradea", 0, 380);
+    Vertice *Zerind = new Vertice("Zerind", 1, 374);
+    Vertice *Arad = new Vertice("Arad", 2, 366);
+    Vertice *Sibiu = new Vertice("Sibiu", 3, 253);
+    Vertice *Timisoara = new Vertice("Timisoara", 4, 329);
+    Vertice *Lugoj = new Vertice("Lugoj", 5, 244);
+    Vertice *Mehadia = new Vertice("Mehadia", 6, 241);
+    Vertice *Drobeta = new Vertice("Drobeta", 7, 242);
+    Vertice *Craiova = new Vertice("Craiova", 8, 160);
+    Vertice *RimnicuVilcea = new Vertice("RimnicuVilcea", 9, 193);
+    Vertice *Pitesti = new Vertice("Pitesti", 10, 100);
+    Vertice *Fagaras = new Vertice("Fagaras", 11, 176);
+    Vertice *Bucharest = new Vertice("Bucharest", 12, 0);
+    Vertice *Giurgiu = new Vertice("Giurgiu", 13, 77);
+    Vertice *Urziceni = new Vertice("Urziceni", 14, 80);
+    Vertice *Hirsova = new Vertice("Hirsova", 15, 151);
+    Vertice *Eforie = new Vertice("Eforie", 16, 161);
+    Vertice *Vaslui = new Vertice("Vaslui", 17, 199);
+    Vertice *Iasi = new Vertice("Iasi", 18, 226);
+    Vertice *Neamt = new Vertice("Neamt", 19, 234);
     
     Aresta *Oradea_Sibiu = new Aresta(Oradea, Sibiu, 151);
     Aresta *Oradea_Zerind = new Aresta(Oradea, Zerind, 71);
@@ -127,14 +131,18 @@ int main( int argc,      // Number of strings in array argv
         
     }
 
-    if (argv[1])
+
+    if (algoritmo == "dfs")
     {
         cout << endl;
         cout << "Algoritmo de Busca em Profundidade:" << endl;
         DFS *dfs = new DFS(vOrigem, vDestino, mapaDaRomenia);
+    } else if (algoritmo == "guloso")
+    {
+        cout << endl;
+        cout << "Algoritmo de Busca Gulosa de Melhor Escolha:" << endl;
+        Guloso *guloso = new Guloso(vOrigem, vDestino, mapaDaRomenia);
     }
-
-    
     
 }
 

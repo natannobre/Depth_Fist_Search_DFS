@@ -52,7 +52,7 @@ DFS::DFS(Vertice * origem, Vertice * destino, Grafo * mapa)
             cout << vertice->getName() << " - ";
         }
         cout << endl;
-        cout << endl << "Custo da Solução: ";
+        cout << endl << "Custo da Solucao: ";
         cout << this->custoSolucao << endl;
         status();
     }
