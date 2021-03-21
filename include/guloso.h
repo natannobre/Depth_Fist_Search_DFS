@@ -73,6 +73,7 @@ bool Guloso::start(Vertice * origem, Vertice * destino, Grafo * mapa)
 
     while (!borda.empty()){ // se a borda estiver vazia termina.
         borda = ordenar(borda);
+        status();
         node = borda.front();
         borda.pop_front();
         if (node->getCurrent()->getId() == destino->getId())
@@ -116,9 +117,9 @@ bool Guloso::start(Vertice * origem, Vertice * destino, Grafo * mapa)
 
             if(!copyBorda.empty()) // Se encontrou o nó filho na borda então volta para checar o próximo filho.
             {
-                if (newChildNode->getHeuristica() < copyBorda.front()->getCurrent()->getHeuristica()) //Se o nó na borda possui um valor maior do que o nó atual
+                if (newChildNode->getHeuristica() < copyBorda.front()->getCurrent()->getHeuristica()) //Se o nó na  borda possui um valor maior do que o nó atual
                 {
-                    cout << "bugou" << endl;
+
                     while (true)
                     {
                         if(node->getCurrent()->getId() == borda.front()->getCurrent()->getId())
